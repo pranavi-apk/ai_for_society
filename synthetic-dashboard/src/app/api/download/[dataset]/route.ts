@@ -23,9 +23,16 @@ export async function GET(
       return NextResponse.json({ error: 'Dataset file not available.' }, { status: 404 });
     }
 
-    // Returning a redirect to the public folder stream or streaming the file
-    // The easiest way is to let Next.js serve the static file by redirecting
-    return NextResponse.redirect(new URL(`/data/${filename}`, request.url));
+    // Read the file and force a download via Content-Disposition
+    const fileBuffer = fs.readFileSync(filePath);
+
+    return new NextResponse(fileBuffer, {
+      status: 200,
+      headers: {
+        'Content-Type': 'text/csv',
+        'Content-Disposition': `attachment; filename="${filename}"`,
+      },
+    });
   } catch (error) {
     console.error(`Error in /api/download:`, error);
     return NextResponse.json({ error: 'Failed to download dataset' }, { status: 500 });
