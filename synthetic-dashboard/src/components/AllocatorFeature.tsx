@@ -202,7 +202,7 @@ export default function AllocatorFeature() {
                          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                        ))}
                      </Pie>
-                     <RechartsTooltip formatter={(value: number) => value.toLocaleString()} />
+                     <RechartsTooltip formatter={(value: any) => Number(value).toLocaleString()} />
                    </PieChart>
                  </ResponsiveContainer>
                  <div className="absolute inset-0 flex items-center justify-center flex-col">

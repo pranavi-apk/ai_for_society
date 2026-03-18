@@ -75,7 +75,7 @@ export default function DemographicsPage() {
                   tickFormatter={(val) => `${(val / 1000).toFixed(0)}k`} 
                 />
                 <Tooltip cursor={{ fill: '#F1F5F9' }} 
-                  formatter={(value: number) => new Intl.NumberFormat('en-US').format(value)}
+                  formatter={(value: any) => new Intl.NumberFormat('en-US').format(Number(value))}
                 />
                 <Bar dataKey="Population" fill="#0072B7" radius={[4, 4, 0, 0]} />
               </BarChart>
@@ -98,13 +98,13 @@ export default function DemographicsPage() {
                      outerRadius={120}
                      fill="#8884d8"
                      dataKey="value"
-                     label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                     label={({ name, percent }: any) => `${name} ${((percent || 0) * 100).toFixed(0)}%`}
                    >
                      {demographicsData.vulnerabilities.map((entry: any, index: number) => (
                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                      ))}
                    </Pie>
-                   <Tooltip formatter={(value: number) => new Intl.NumberFormat('en-US').format(value)} />
+                   <Tooltip formatter={(value: any) => new Intl.NumberFormat('en-US').format(Number(value))} />
                  </PieChart>
                </ResponsiveContainer>
              )}
@@ -130,12 +130,13 @@ export default function DemographicsPage() {
                >
                  <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} stroke="#E2E8F0" />
                  <XAxis type="number" 
-                   tickFormatter={(v) => Math.abs(v) > 1000 ? `${(Math.abs(v) / 1000).toFixed(0)}k` : Math.abs(v)} 
+                   tickFormatter={(v: any) => Math.abs(Number(v)) > 1000 ? `${(Math.abs(Number(v)) / 1000).toFixed(0)}k` : `${Math.abs(Number(v))}`} 
                  />
                  <YAxis dataKey="ageGroup" type="category" />
                  <Tooltip 
-                   formatter={(value: number, name: string) => [new Intl.NumberFormat('en-US').format(Math.abs(value)), name === 'maleChart' ? 'Male' : 'Female']} 
+                   formatter={(value: any, name: any) => [new Intl.NumberFormat('en-US').format(Math.abs(Number(value))), name === 'maleChart' ? 'Male' : 'Female']} 
                  />
+                 {/* @ts-ignore */}
                  <Legend payload={[
                    { value: 'Male', type: 'square', color: '#1E40AF' },
                    { value: 'Female', type: 'square', color: '#ec4899' }
@@ -186,10 +187,10 @@ export default function DemographicsPage() {
               <YAxis 
                 axisLine={false} 
                 tickLine={false} 
-                tickFormatter={(val) => `${(val / 1000000).toFixed(1)}M`} 
+                tickFormatter={(val: any) => `${(Number(val) / 1000000).toFixed(1)}M`} 
               />
               <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E2E8F0" />
-              <Tooltip formatter={(value: number) => new Intl.NumberFormat('en-US').format(value)} />
+              <Tooltip formatter={(value: any) => new Intl.NumberFormat('en-US').format(Number(value))} />
               <Legend />
               <Area type="monotone" dataKey="myanmar" name="Myanmar (IDPs)" stroke="#d97706" fillOpacity={1} fill="url(#colorMyanmar)" />
               <Area type="monotone" dataKey="bangladesh" name="Bangladesh" stroke="#059669" fillOpacity={1} fill="url(#colorBd)" />
