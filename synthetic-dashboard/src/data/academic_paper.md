@@ -6,10 +6,9 @@
 
 **Synthetic Population Modeling for Southeast Asia's Displacement Crisis: An AI-Powered Humanitarian Decision Support System**
 
-*Author: [Your Name]*
+*Author: Pranavi Kuntrapakam*
 
-Department of Artificial Intelligence and Society (AIS)
-HKUST(GZ)
+Student at HKUST (HK) studying Computer Engineering with an Extended Major in AI
 
 **Submission Date:** March 2026
 **Competition:** AI for Society Academic Poster Competition
